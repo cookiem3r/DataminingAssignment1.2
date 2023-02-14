@@ -12,7 +12,6 @@ dataset = pd.read_csv('data/adult.datawithheaders.csv')
 
 #Remove ? for workclss
 dataset = dataset[dataset.workclass != ' ?']
-dataset.to_csv('dp.csv')
 
 #Encode columns from string to int values using LabelEncoder
 dataset.workclass = LabelEncoder().fit_transform(dataset.workclass)
