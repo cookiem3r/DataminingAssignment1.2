@@ -68,7 +68,7 @@ def gridsearch():
             'fit_prior': [True, False]
             }
     cv = RepeatedKFold(n_splits=5, n_repeats=5)
-    categorical_nb_grid = GridSearchCV(CategoricalNB(), param_grid=params, n_jobs=-1, cv=cv, verbose=5)
+    categorical_nb_grid = GridSearchCV(estimator=CategoricalNB(), param_grid=params, n_jobs=-1, cv=cv, verbose=5)
     categorical_nb_grid.fit(X_train,y_train)
 
     print('Best Parameters : {}'.format(categorical_nb_grid.best_params_))
