@@ -10,11 +10,12 @@ from sklearn import metrics
 import time
 
 #Import CSV file containing data
-dataset = pd.read_csv('data/adult.datawithheaders.csv')
-
+#dataset = pd.read_csv('data/adult.datawithheaders.csv')
+dataset = pd.read_csv('data/combined.csv')
 #Remove ? for workclss
 dataset = dataset[dataset.workclass != ' ?']
-
+#Removed period in the pay column
+dataset['pay'] = dataset['pay'].map(lambda x: x.rstrip('.'))
 
 #Encode columns from string to int values using LabelEncoder
 dataset.workclass = LabelEncoder().fit_transform(dataset.workclass)
@@ -53,10 +54,12 @@ print(dataset.head(10))
 cols = [0,4,5,13,14,15,18]
 dataset.drop(dataset.columns[cols],axis=1,inplace=True)
 
+print("Data first 10 rows")
 print(dataset.head(10))
+print("Label first 10 rows")
 print(label.head(10))
 
-X_train, X_test, y_train, y_test = train_test_split(dataset, label, test_size=0.4)
+X_train, X_test, y_train, y_test = train_test_split(dataset, label, test_size=0.3)
 
 #Hyper-parameters
 classifier = DecisionTreeClassifier(max_depth = 8, random_state = 0, criterion="gini", min_samples_leaf=30, ccp_alpha=0.002)

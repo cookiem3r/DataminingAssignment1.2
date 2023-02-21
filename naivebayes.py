@@ -8,10 +8,12 @@ import time
 from sklearn.model_selection import GridSearchCV,RepeatedKFold
 
 #Import CSV file containing data
-dataset = pd.read_csv('data/adult.datawithheaders.csv')
+dataset = pd.read_csv('data/combined.csv')
 
 #Remove ? for workclss
 dataset = dataset[dataset.workclass != ' ?']
+#Removed period in the pay column
+dataset['pay'] = dataset['pay'].map(lambda x: x.rstrip('.'))
 
 #Encode columns from string to int values using LabelEncoder
 dataset.workclass = LabelEncoder().fit_transform(dataset.workclass)
@@ -59,11 +61,12 @@ dataset["fnlwgtrange"]=dataset["fnlwgtrange"].astype("int")
 
 print(dataset.dtypes)
 
-X_train, X_test, y_train, y_test = train_test_split(dataset, label, test_size=0.5)
+X_train, X_test, y_train, y_test = train_test_split(dataset, label, test_size=0.4)
 
 #GridSearch for hyper-parameters
 def gridsearch():
-    params = {'alpha': [0.01, 0.1, 0.5, 1.0, 10.0],
+    params = {
+            'alpha': [0.01, 0.1, 0.5, 1.0, 10.0],
             'class_prior': [None, [0.1,] * 12, ],
             'fit_prior': [True, False]
             }
