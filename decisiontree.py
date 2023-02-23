@@ -59,6 +59,7 @@ print(dataset.head(10))
 print("Label first 10 rows")
 print(label.head(10))
 
+#Split the training data into 30:70 ratio
 X_train, X_test, y_train, y_test = train_test_split(dataset, label, test_size=0.3)
 
 #Hyper-parameters
@@ -103,6 +104,7 @@ def predict():
     y_pred = classifier.predict(X_test)
     predictstop = time.time()
     print(f"Predict time: {predictstop - predictstart}s")
+    #Get Accuracy value
     print("Accuracy:",metrics.accuracy_score(y_test, y_pred))
     plt.figure(figsize=(12,12))
     tree.plot_tree(classifier,fontsize=10)

@@ -61,6 +61,7 @@ dataset["fnlwgtrange"]=dataset["fnlwgtrange"].astype("int")
 
 print(dataset.dtypes)
 
+#Split the training data into 40:60 ratio
 X_train, X_test, y_train, y_test = train_test_split(dataset, label, test_size=0.4)
 
 #GridSearch for hyper-parameters
@@ -94,8 +95,10 @@ trainstop = time.time()
 print(f"Training time: {trainstop - trainstart}s")
 
 predictstart = time.time()
+#Perform Prediction
 y_pred = classifier.predict(X_test)
 predictstop = time.time()
+
 print(f"Predict time: {predictstop - predictstart}s")
 print("Accuracy:",metrics.accuracy_score(y_test, y_pred))
 print("Number of mislabeled points out of a total %d points : %d" % (X_test.shape[0], (y_test != y_pred).sum()))
